@@ -64,4 +64,19 @@ class TestDataSeeder extends Seeder
         }
 
     }
+
+    private function getUnsplashImageUrls(string $query, int $count)
+    {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://api.unsplash.com/photos/random', [
+            'query' => [
+                'query' => $query,
+                'count' => $count,
+                'client_id' => env('UNSPLASH_ACCESS_KEY'),
+                'orientation' => 'landscape',
+            ],
+        ]);
+        $response = json_decode($response->getBody()->getContents(), true);
+        return collect(array_map(fn($item) => $item['urls']['regular'], $response));
+    }
 }

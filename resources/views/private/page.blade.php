@@ -1,10 +1,14 @@
 @extends('private.base')
 
+@section('title')
+    {{ $post->title }}
+@endsection
+
 @section('main')
 <div class="mx-auto max-w-7xl grid grid-cols-5 font-sans">
     <article class="col-span-5 md:col-span-3 px-6">
         <header class="py-4 rounded-lg">
-            <h1 class="font-bold font-serif text-2xl text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-500 tracking-tight leading-8 pb-3">
+            <h1 class="font-bold font-serif text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-500 tracking-tight leading-8 pb-3">
                 {{ $post->title }}
             </h1>
             <div class="flex justify-between items-center">
@@ -121,7 +125,8 @@
                         <div class="px-2 lg:px-3 flex flex-col justify-between">
                             <div class="text-gray-500 dark:text-gray-400 text-sm">{{ $post->next->title }}</div>
                             <div>
-                                <a href="{{ is_null($series) ? route('post', $post->next) : route('series.post', [$series->slug, $post->next]) }}" class="inline-flex gap-x-2 items-center text-sm bg-red-500 text-red-100 px-3 py-1 rounded shadow">
+                                <a href="{{ is_null($series) ? route('post', $post->next) : route('series.post', [$series->slug, $post->next]) }}"
+                                   class="inline-flex gap-x-2 items-center text-sm bg-red-500 hover:bg-orange-500 text-red-100 px-3 py-1 rounded shadow">
                                     <span>Next</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
@@ -157,11 +162,12 @@
                             <div class="text-gray-500 dark:text-gray-400 text-sm">{{ $post->previous->title }}</div>
 
                             <div>
-                                <a href="{{ is_null($series) ? route('post', $post->previous) : route('series.post', [$series->slug, $post->previous]) }}" class="inline-flex gap-x-2 items-center text-sm bg-red-500 text-red-100 px-3 py-1 rounded shadow">
+                                <a href="{{ is_null($series) ? route('post', $post->previous) : route('series.post', [$series->slug, $post->previous]) }}"
+                                   class="inline-flex gap-x-2 items-center text-sm bg-red-500 hover:bg-orange-500 text-red-100 px-3 py-1 rounded shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
                                     </svg>
-                                    <span>Previous</span>
+                                    <span>Prev</span>
                                 </a>
                             </div>
                         </div>
@@ -202,9 +208,9 @@
                             <img src="{{ $p->thumbnail_url }}" alt="{{ $p->title }}"
                                  class="h-20 rounded">
                             <div class="px-2 lg:px-3">
-                                <div class="text-red-500 font-bold">
+                                <a href="{{ route('post', $p) }}" class="text-red-500 hover:text-orange-500 font-bold">
                                     {{ $p->title }}
-                                </div>
+                                </a>
                                 <div class="text-gray-500 dark:text-gray-400 py-2 text-sm">
                                     {{ Str::substr($p->about, 0, 60) }} ...
                                 </div>

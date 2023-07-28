@@ -2,10 +2,9 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +19,20 @@ use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', fn() => view('public.home'));
 
-Route::get('/page', fn() => view('private.page_old'));
+/* Posts */
 Route::get('/posts/{post}', [PostController::class, 'get'])->name('post');
-
-Route::get('/subjects/{subject}', fn() => view('private.subject'))->name('subject');
-
-Route::get('/series/{slug}/{post}', [PostController::class, 'getSeriesPost'])->name('series.post');
-
-
-
 Route::post('/posts/{post}/like', [PostLikeController::class, 'like'])->name('posts.like');
 Route::post('/posts/{post}/dislike', [PostLikeController::class, 'dislike'])->name('posts.dislike');
 Route::post('/posts/{post}/unlike', [PostLikeController::class, 'unlike'])->name('posts.unlike');
 Route::post('/posts/{post}/undislike', [PostLikeController::class, 'undislike'])->name('posts.undislike');
+
+
+Route::get('/subjects/{subject}', [SubjectController::class, 'get'])->name('subject');
+
+//Route::get('/series/{slug}/{post}', [PostController::class, 'getSeriesPost'])->name('series.post');
+
+
+
 
 //Route::get('/dashboard', fn() => view('backend.dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
 ////

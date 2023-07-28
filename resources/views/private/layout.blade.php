@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Platform') }}</title>
+
+    <title>
+        {{ config('app.name', 'Platform') }}
+        @hasSection('title')
+            -
+            @yield('title')
+        @endif
+    </title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +32,7 @@
         }
     </script>
 </head>
-<body class="h-full w-full">
+<body class="h-full w-full dark:bg-gray-900">
     @yield('content')
 </body>
 </html>

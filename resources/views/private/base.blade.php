@@ -3,9 +3,9 @@
 @section('content')
 <div class="bg-gradient-to-br from-white dark:from-gray-900 to-orange-50 dark:to-slate-950 w-full min-h-screen" x-data="{showLoginModal: false}">
 
-    <div class="bg-white dark:bg-gray-800 border-b border-red-50 dark:border-gray-800 shadow grid">
+    <div class="bg-white dark:bg-gray-800 border-b border-red-50 dark:border-gray-800 grid">
         <div class="mx-auto w-full max-w-7xl flex items-center justify-between">
-            <div class="font-extrabold p-4 text-rose-500 flex items-center">
+            <div class="font-extrabold p-4 text-rose-500 dark:text-white flex items-center">
                 <div class="w-8 mr-3 px-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
@@ -18,7 +18,7 @@
 
             <div class="flex items-center gap-x-4 md:gap-x-6 xl:gap-x-8">
                 <div class="relative inline-block text-left" x-data="{showThemeMenu: false}" @click.outside="showThemeMenu = false">
-                    <div class="text-purple-300 cursor-pointer" @click="showThemeMenu = !showThemeMenu">
+                    <div class="text-orange-500 cursor-pointer" @click="showThemeMenu = !showThemeMenu">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
                         </svg>
@@ -37,27 +37,24 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-3">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                                 </svg>
-
                                 Dark
                             </a>
                             <a href="#" onclick="localStorage.removeItem('theme'); changeTheme();" @click="showThemeMenu = false" class="text-gray-700 group flex items-center px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-3">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
                                 </svg>
-
                                 System
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-purple-500 text-white px-3 py-2 rounded-lg text-xs font-bold flex items-center gap-x-2">
+                <div class="text-white bg-gradient-to-r from-pink-500 to-orange-500 px-3 py-2 rounded-lg text-xs font-bold flex items-center gap-x-2">
                     <div class="hidden md:block">Go Premium</div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                     </svg>
                 </div>
-
 
 
                 <div>
@@ -131,7 +128,22 @@
         </div>
     </div>
 
-    @yield('main')
+    <div class="w-full">
+        @yield('main')
+    </div>
+
+    <div class="w-full">
+        <div class="border-t dark:border-gray-700">
+            <div class="mx-auto max-w-7xl flex items-center justify-center gap-x-6 px-8 pt-8 pb-12">
+                <a href="#" class="text-sm text-gray-500 hover:text-cyan-500">Terms of Use</a>
+                <div class="text-gray-300 dark:text-gray-700">|</div>
+                <a href="#" class="text-sm text-gray-500 hover:text-cyan-500">Privacy Policy</a>
+                <div class="text-gray-300 dark:text-gray-700">|</div>
+                <a href="#" class="text-sm text-gray-500 hover:text-cyan-500">Contact Us</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @yield('scripts')
