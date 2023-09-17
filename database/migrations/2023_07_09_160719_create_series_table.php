@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('series', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->string('title');
-            $table->string('slug')->unique()->index();
-            $table->string('description', 1024);
-            $table->boolean('is_featured');
-            $table->string('image_url');
-            $table->string('thumbnail_url');
-            $table->string('level', 32)->default('beginner');
+            $table->string('description');
+            $table->string('image_url')->nullable();
+            $table->string('thumbnail_url')->nullable();
+
             $table->timestamps();
         });
     }

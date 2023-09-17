@@ -1,22 +1,22 @@
 @extends('private.base')
 
 @section('title')
-    {{ $subject->name }}
+    {{ $series->title }}
 @endsection
 
 @section('main')
-    <div class="w-full bg-cover" style="background-image: url('{{ $subject->image_url }}')">
+    <div class="w-full bg-cover" style="background-image: url('{{ $series->image_url }}')">
         <div class="backdrop-blur bg-black/20">
             <div class="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="text-white">
-                    Subject
+                    Series
                 </div>
                 <h1 class="text-5xl py-6 font-bold font-serif text-rose-500">
-                    {{ \Illuminate\Support\Str::title($subject->name) }}
+                    {{ \Illuminate\Support\Str::title($series->title) }}
                 </h1>
-                <p class="text-2xl text-gray-100 py-3">{{ $subject->description }}</p>
+                <p class="text-2xl text-gray-100 py-3">{{ $series->description }}</p>
                 <div class="flex items-center gap-x-8 mt-10">
-                    <a href="{{ route('post', $posts->first()) }}"
+                    <a href="{{ route('series.post', [$series, $posts->first()]) }}"
                        class="px-8 py-4 rounded-lg text-lg text-white bg-gradient-to-r from-pink-500 to-orange-500 hover:to-orange-400">
                         Start Watching
                     </a>
@@ -37,10 +37,10 @@
 
                         <div class="px-4 lg:px-6">
                             <div>
-                                <span class="text-rose-500 px-1 font-bold rounded">
-                                    {{ $post->order }}#
+                                <span class="text-orange-400 px-1 font-bold rounded">
+                                    {{ $loop->iteration }}#
                                 </span>
-                                <a href="{{ route('post', $post) }}" class="text-lg text-red-600 dark:text-gray-200 hover:text-orange-500 dark:hover:text-rose-500 font-bold">
+                                <a href="{{ route('series.post', [$series, $post]) }}" class="text-lg text-red-600 dark:text-gray-200 hover:text-orange-500 dark:hover:text-rose-500 font-bold">
                                     {{ $post->title }}
                                 </a>
                             </div>

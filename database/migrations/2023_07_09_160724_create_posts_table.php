@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('about', 1024);
-            $table->unsignedSmallInteger('order');
             $table->string('image_url');
             $table->string('thumbnail_url');
             $table->string('video_url');
@@ -27,7 +26,6 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_premium')->default(false);
 
-            $table->foreignId('subject_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

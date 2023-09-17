@@ -3,7 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\SocialLoginController;
-use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\SeriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,16 +20,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => view('public.home'));
 
 /* Posts */
-Route::get('/posts/{post}', [PostController::class, 'get'])->name('post');
 Route::post('/posts/{post}/like', [PostLikeController::class, 'like'])->name('posts.like');
 Route::post('/posts/{post}/dislike', [PostLikeController::class, 'dislike'])->name('posts.dislike');
 Route::post('/posts/{post}/unlike', [PostLikeController::class, 'unlike'])->name('posts.unlike');
 Route::post('/posts/{post}/undislike', [PostLikeController::class, 'undislike'])->name('posts.undislike');
 
 
-Route::get('/subjects/{subject}', [SubjectController::class, 'get'])->name('subject');
+Route::get('/series', [SeriesController::class, 'index'])->name('series.index');
+Route::get('/series/{series:slug}', [SeriesController::class, 'get'])->name('series');
+Route::get('/series/{series:slug}/posts/{post}', [SeriesController::class, 'getPost'])->name('series.post')->scopeBindings();
 
-//Route::get('/series/{slug}/{post}', [PostController::class, 'getSeriesPost'])->name('series.post');
+
 
 
 
@@ -43,9 +44,6 @@ Route::get('/subjects/{subject}', [SubjectController::class, 'get'])->name('subj
 //});
 
 require __DIR__.'/auth.php';
-
-
 Route::get('/auth/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->name('social.login');
-
 Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'handleProviderCallback'])->name('social.callback');
 

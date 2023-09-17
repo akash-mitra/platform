@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -11,9 +12,11 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function subject()
+    public function series(): BelongsToMany
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsToMany(Series::class)
+            ->withPivot('order')
+            ->withTimestamps();
     }
 
     public function contents()
@@ -79,26 +82,8 @@ class Post extends Model
         return $this;
     }
 
-    public function getPreviousAttribute()
+    public static function ordinal($ordinal): string
     {
-        return Post::where('subject_id', $this->subject_id)
-            ->where('order', $this->order - 1)
-            ->where('is_published', true)
-            ->first();
-    }
-
-    public function getNextAttribute()
-    {
-        return Post::where('subject_id', $this->subject_id)
-            ->where('order', $this->order + 1)
-            ->where('is_published', true)
-            ->first();
-    }
-
-
-    public function getOrdinalAttribute()
-    {
-        $ordinal = $this->order;
         $lastDigit = substr($ordinal, -1);
         $lastTwoDigits = substr($ordinal, -2);
         if ($lastTwoDigits > 10 && $lastTwoDigits < 20) {

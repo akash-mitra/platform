@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Series>
@@ -30,15 +29,12 @@ class SeriesFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->sentence(3);
         return [
-            'title' => $title,
-            'slug' => Str::slug($title),
+            'title' => fake()->sentence(8),
+            'slug' => fake()->slug(),
             'description' => fake()->paragraph(3),
-            'is_featured' => fake()->boolean(),
             'image_url' => $this->images[fake()->numberBetween(0, count($this->images) - 1)],
             'thumbnail_url' => fake()->imageUrl(),
-            'level' => fake()->randomElement(['beginner', 'intermediate', 'advanced']),
         ];
     }
 }

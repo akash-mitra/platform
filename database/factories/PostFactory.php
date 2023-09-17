@@ -26,7 +26,6 @@ class PostFactory extends Factory
         return [
             'title' => fake()->sentence(7),
             'about' => fake()->paragraph(4),
-            'order' => fake()->randomDigit(),
             'image_url' => 'https://picsum.photos/300/200?random=' . fake()->randomDigit(),
             'thumbnail_url' => 'https://picsum.photos/200?random=' . fake()->randomDigit(),
             'video_url' => 'https://www.youtube.com/embed/' . $sampleYouTubeVideos->random(),
@@ -36,7 +35,6 @@ class PostFactory extends Factory
             'is_published' => $booleans->random(),
             'is_featured' => ! $booleans->random(),
             'is_premium' => ! $booleans->random(),
-            'subject_id' => 1,
             'user_id' => 1
         ];
     }

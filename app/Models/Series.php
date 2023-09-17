@@ -10,9 +10,15 @@ class Series extends Model
 {
     use HasFactory;
 
-    // series has many subjects
-    public function subjects(): BelongsToMany
+    public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Post::class)
+            ->withPivot('order')
+            ->withTimestamps();
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return route('series', $this);
     }
 }

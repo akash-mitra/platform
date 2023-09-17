@@ -5,19 +5,18 @@
 @endsection
 
 @section('main')
-<div class="mx-auto max-w-7xl grid grid-cols-5 font-sans">
-    <article class="col-span-5 md:col-span-3 px-6">
+<div class="mx-auto max-w-7xl grid grid-cols-5 font-sans relative">
+    <article class="col-span-5 md:col-span-3 px-6 relative">
         <header class="py-4 rounded-lg">
             <h1 class="font-bold font-serif text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-500 tracking-tight leading-8 pb-3">
                 {{ $post->title }}
             </h1>
             <div class="flex justify-between items-center">
-                <div class="flex items-center gap-x-2">
-                    <div class="bg-orange-500 text-white p-2 rounded-lg text-sm font-bold">{{ $post->ordinal }} </div>
-                    <div class="dark:text-gray-400">video in </div>
-                    <a href="{{ is_null($series) ? $post->subject->url : $series->url }}"
-                       class="text-red-600 tracking-tight">
-                        {{ is_null($series) ? $post->subject->name : $series->title }}
+                <div class="flex items-center gap-x-2 truncate">
+                    <div class="bg-orange-500 text-white p-2 rounded-lg text-sm font-bold">{{ \App\Models\Post::ordinal($post->pivot->order) }} </div>
+                    <div class="dark:text-gray-400"> in </div>
+                    <a href="{{ $series->url }}" class="text-red-600 tracking-tight">
+                        {{ $series->title }}
                     </a>
                 </div>
 
@@ -36,9 +35,9 @@
             </div>
         </header>
 
-        <div id="main-video" class="w-full">
+        <div id="main-video" class="w-full bg-amber-700 relative">
             <iframe id="main-video-iframe"
-                    class="my-2 w-full aspect-video shadow-xl rounded z-20"
+                    class="my-2 w-full aspect-video shadow-xl rounded z-20" style="aspect-ratio: 16 / 9"
                     src="{{ $post->video_url }}" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
@@ -115,17 +114,17 @@
 
     <aside class="col-span-5 md:col-span-2 px-6 xl:px-8">
 
-        @if(! is_null($post->next))
+        @if(! is_null($next))
             <div class="mt-4">
                 <div class="uppercase text-gray-400 text-xs py-2">Coming up next...</div>
                 <div class="bg-white dark:bg-gray-800 px-2 py-3 lg:px-3 lg:py-4 rounded shadow">
                     <div class="flex">
-                        <img src="{{ $post->next->thumbnail_url }}" alt="{{ $post->next->title }}"
+                        <img src="{{ $next->thumbnail_url }}" alt="{{ $next->title }}"
                              class="h-20 rounded">
                         <div class="px-2 lg:px-3 flex flex-col justify-between">
-                            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ $post->next->title }}</div>
+                            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ $next->title }}</div>
                             <div>
-                                <a href="{{ is_null($series) ? route('post', $post->next) : route('series.post', [$series->slug, $post->next]) }}"
+                                <a href="{{ route('series.post', [$series, $next]) }}"
                                    class="inline-flex gap-x-2 items-center text-sm bg-red-500 hover:bg-orange-500 text-red-100 px-3 py-1 rounded shadow">
                                     <span>Next</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -144,25 +143,25 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
                     </svg>
                     <div class="">
-                        Congrats! You've reached the end of this {{ is_null($series) ? 'subject' : 'series' }}.
+                        Congrats! You've reached the end of this series.
                     </div>
                 </div>
             </div>
         @endif
 
 
-        @if(! is_null($post->previous))
+        @if(! is_null($previous))
             <div class="mt-4">
                 <div class="uppercase text-gray-400 text-xs py-2">Previously...</div>
                 <div class="bg-white dark:bg-gray-800 px-2 py-3 lg:px-3 lg:py-4 rounded shadow">
                     <div class="flex">
-                        <img src="{{ $post->previous->thumbnail_url }}" alt="{{ $post->previous->title }}"
+                        <img src="{{ $previous->thumbnail_url }}" alt="{{ $previous->title }}"
                              class="h-20 rounded">
                         <div class="px-2 lg:px-3 flex flex-col justify-between">
-                            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ $post->previous->title }}</div>
+                            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ $previous->title }}</div>
 
                             <div>
-                                <a href="{{ is_null($series) ? route('post', $post->previous) : route('series.post', [$series->slug, $post->previous]) }}"
+                                <a href="{{ route('series.post', [$series, $previous]) }}"
                                    class="inline-flex gap-x-2 items-center text-sm bg-red-500 hover:bg-orange-500 text-red-100 px-3 py-1 rounded shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
@@ -208,7 +207,7 @@
                             <img src="{{ $p->thumbnail_url }}" alt="{{ $p->title }}"
                                  class="h-20 rounded">
                             <div class="px-2 lg:px-3">
-                                <a href="{{ route('post', $p) }}" class="text-red-500 hover:text-orange-500 font-bold">
+                                <a href="{{ route('series.post', [$series, $p]) }}" class="text-red-500 hover:text-orange-500 font-bold">
                                     {{ $p->title }}
                                 </a>
                                 <div class="text-gray-500 dark:text-gray-400 py-2 text-sm">
